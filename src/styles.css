@@ -124,17 +124,17 @@ h1 {
   --radius: 0px 0px 0px 4px;
 }
 
-.cell.correct {
+:is(.cell, .key-letter).correct {
   background: var(--color-success);
   border-color: var(--color-success);
   color: white;
 }
-.cell.incorrect {
+:is(.cell, .key-letter).incorrect {
   background: var(--color-gray-300);
   border-color: var(--color-gray-300);
   color: white;
 }
-.cell.misplaced {
+:is(.cell, .key-letter).misplaced {
   background: var(--color-warning);
   border-color: var(--color-warning);
   color: white;
@@ -183,6 +183,31 @@ h1 {
 .sad.banner {
   background: var(--color-error);
   color: white;
+}
+
+.keyboard {
+  --key-gap: 0.25rem;
+  display: grid;
+  grid-template-rows: repeat(3, 50px);
+  gap: var(--key-gap);
+  align-self: center;
+}
+
+.keyboard .key-row {
+  display: flex;
+  gap: var(--key-gap);
+  justify-content: center;
+}
+
+.key-letter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  width: 48px;
+  aspect-ratio: 1/1;
+  background-color: lightgray;
+  color: black;
 }
 
 .visually-hidden {
