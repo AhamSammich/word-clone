@@ -10,16 +10,25 @@ import GuessSlots from "../GuessSlots/GuessSlots";
 import VisualKeyboard from "../VisualKeyboard/VisualKeyboard";
 import GameOverBanner from "../GameOverBanner/GameOverBanner";
 
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
-
 function Game() {
+  const [answer, setAnswer] = React.useState(generateAnswer);
   const [guesses, setGuesses] = React.useState([]);
   const [gameResult, setGameResult] = React.useState("");
   const [letterStatus, setLetterStatus] = React.useState({});
   const gameOver = !!gameResult;
+
+  function generateAnswer() {
+    const answer = sample(WORDS);
+    console.info({ answer });
+    return answer;
+  }
+
+  function resetGame() {
+    setAnswer(generateAnswer);
+    setGuesses([]);
+    setGameResult("");
+    setLetterStatus({});
+  }
 
   function checkAnswer() {
     if (gameResult) return;
@@ -50,7 +59,7 @@ function Game() {
 
   function addGuess(guess) {
     if (guesses.length >= NUM_OF_GUESSES_ALLOWED) return;
-    console.log({ guess });
+    console.info({ guess });
     const newGuesses = [...guesses, guess];
     updateLetterStatus(guess);
     setGuesses(newGuesses);
@@ -69,7 +78,13 @@ function Game() {
       </GuessResults>
       <GuessInput addGuess={addGuess} gameOver={gameOver} />
       <VisualKeyboard letterStatus={letterStatus} />
-      {gameOver && <GameOverBanner numOfGuesses={guesses.length} gameResult={gameResult} />}
+      {gameOver && (
+        <GameOverBanner numOfGuesses={guesses.length} gameResult={gameResult}>
+          <button className="reset-button" onClick={resetGame}>
+            Play Again
+          </button>
+        </GameOverBanner>
+      )}
     </>
   );
 }

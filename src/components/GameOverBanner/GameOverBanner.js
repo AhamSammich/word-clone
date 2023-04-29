@@ -1,6 +1,6 @@
 import React from "react";
 
-function Banner({ numOfGuesses, gameResult }) {
+function Banner({ children, numOfGuesses, gameResult }) {
   const isWinner = gameResult === "win";
   const className = `${isWinner ? "happy" : "sad"} banner`;
   const winMessage = (
@@ -17,6 +17,7 @@ function Banner({ numOfGuesses, gameResult }) {
   return (
     <div className={className}>
       <p>{isWinner ? winMessage : loseMessage}</p>
+      {children}
     </div>
   );
 }
