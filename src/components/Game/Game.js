@@ -13,6 +13,17 @@ console.info({ answer });
 
 function Game() {
   const [guesses, setGuesses] = React.useState([]);
+  const [gameResult, setGameResult] = React.useState("");
+
+  function checkAnswer() {
+    if (gameResult) return;
+    const lastGuess = guesses.at(-1);
+    if (lastGuess === answer) {
+      setGameResult("win");
+    } else if (guesses.length === NUM_OF_GUESSES_ALLOWED) {
+      setGameResult("lose");
+    }
+  }
 
   function addGuess(guess) {
     if (guesses.length >= NUM_OF_GUESSES_ALLOWED) return;
@@ -20,10 +31,13 @@ function Game() {
     const newGuesses = [...guesses, guess];
     setGuesses(newGuesses);
   }
+
+  checkAnswer();
+
   return (
     <>
       <GuessResults guesses={guesses} answer={answer} />
-      <GuessInput addGuess={addGuess} />
+      <GuessInput addGuess={addGuess} gameResult={gameResult} />
     </>
   );
 }
