@@ -79,7 +79,11 @@ function Game() {
       <GuessInput addGuess={addGuess} gameOver={gameOver} />
       <VisualKeyboard letterStatus={letterStatus} />
       {gameOver && (
-        <GameOverBanner numOfGuesses={guesses.length} gameResult={gameResult}>
+        <GameOverBanner
+          numOfGuesses={guesses.length}
+          gameResult={gameResult}
+          answer={answer}
+        >
           <button className="reset-button" onClick={resetGame}>
             Play Again
           </button>

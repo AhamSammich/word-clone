@@ -1,6 +1,6 @@
 import React from "react";
 
-function Banner({ children, numOfGuesses, gameResult }) {
+function GameOverBanner({ children, numOfGuesses, gameResult, answer }) {
   const isWinner = gameResult === "win";
   const className = `${isWinner ? "happy" : "sad"} banner`;
   const winMessage = (
@@ -11,7 +11,7 @@ function Banner({ children, numOfGuesses, gameResult }) {
   );
   const loseMessage = (
     <>
-      Sorry, the correct answer is <strong>LEARN</strong>.
+      Sorry, the correct answer is <strong>{answer}</strong>.
     </>
   );
   return (
@@ -22,4 +22,4 @@ function Banner({ children, numOfGuesses, gameResult }) {
   );
 }
 
-export default Banner;
+export default GameOverBanner;
